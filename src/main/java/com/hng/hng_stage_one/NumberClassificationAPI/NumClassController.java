@@ -16,7 +16,7 @@ public class NumClassController {
     }
 
     @GetMapping(value = "classify-number")
-    public ResponseEntity<?> getAccessToken(@RequestParam(value="number") String number) throws NumClassException {
+    public ResponseEntity<?> getAccessToken(@RequestParam(value="number") long number) throws NumClassException {
         return numClassService.classifyNumber(number);
     }
 }

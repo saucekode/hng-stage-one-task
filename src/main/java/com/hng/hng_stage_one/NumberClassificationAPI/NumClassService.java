@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -25,31 +26,15 @@ public class NumClassService {
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<Map<String, Object>> classifyNumber(String number) {
-        validateInput(number);
-
+    public ResponseEntity<Map<String, Object>> classifyNumber(long number) {
         Map<String, Object> numberClassification = new HashMap<>();
         numberClassification.put("number", number);
-        numberClassification.put("is_prime", isPrimeNumber(Long.parseLong(number)));
-        numberClassification.put("is_perfect", isPerfectNumber(Long.parseLong(number)));
-        numberClassification.put("properties", generateProperties(Long.parseLong(number)));
-        numberClassification.put("digit_sum", sumNumberDigit(Long.parseLong(number)));
-        numberClassification.put("fun_fact", generateNumberFunFact(Long.parseLong(number)));
+        numberClassification.put("is_prime", isPrimeNumber(number));
+        numberClassification.put("is_perfect", isPerfectNumber(number));
+        numberClassification.put("properties", generateProperties(number));
+        numberClassification.put("digit_sum", sumNumberDigit(number));
+        numberClassification.put("fun_fact", generateNumberFunFact(number));
         return ResponseEntity.ok(numberClassification);
-    }
-
-    private void validateInput(String number) {
-        if(number.matches("^[a-zA-Z]+$")){
-            throw new NumClassException("alphabet", true);
-        }
-
-        else if(number.matches("[0-9]+[/][0-9]+")){
-            throw new NumClassException("fraction", true);
-        }
-
-        else if(number.matches("[0-9]+[.][0-9]+")){
-            throw new NumClassException("decimal", true);
-        }
     }
 
     private boolean isPrimeNumber(long number){
