@@ -36,7 +36,7 @@ The **Number Facts API** takes a number as input and returns:
 
 **Request Example**
   ```sh
-  curl --location 'http://localhost:8084/api/classify-number?number=300'
+  curl --location 'https://hng-stage-one-task-7qdp.onrender.com/api/classify-number?number=300'
   ```
 **Response Example**
   ```sh
